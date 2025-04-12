@@ -1,11 +1,6 @@
-def convertToEuroText (amount):
-    return "€{:.2f}".format(float(amount)).replace(".", ",")
+aantal1 = int(input('Hoeveel ijsjes van $1.25 wil je bestellen? '))
+aantal2 = int(input('En hoeveel ijsjes van $2.10 wil je bestellen? '))
 
-SMALL_PRICE = 1,25
-MEDIUM_PRICE = 2,10
+eindprijs = aantal1 * 1.25 + aantal2 * 2.10
 
-amount = input('Hoeveel ijsjes van {} wil je bestellen? '.format(convertToEuroText(SMALL_PRICE)))
-amount = input('En hoeveel ijsjes van {} wil je bestellen? '.format(convertToEuroText(MEDIUM_PRICE)))
-totalPrice = int(amount * SMALL_PRICE) + int(amount * MEDIUM_PRICE)
-
-print('Dat is dan {} totaal'.format(convertToEuroText(totalPrice)))
+print('Dat is dan {:.2f} totaal'.format(eindprijs))
