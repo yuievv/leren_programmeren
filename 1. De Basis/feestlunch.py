@@ -14,4 +14,4 @@ totale_korting = aantal_kortingsbonnen * korting_per_bon
 te_betalen_bedrag = totale_kosten - totale_korting
 
 # Resultaat
-print(f"Te betalen: {te_betalen_bedrag:.2f} euro")
+print(f'De feestlunch kost je bij de bakker {te_betalen_bedrag:.2f} euro voor de {aantal_croissantjes} croissantjes en de {aantal_stokbroden} stokbroden als de {aantal_kortingsbonnen} kortingsbonnen nog geldig zijn!')
