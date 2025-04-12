@@ -1,3 +1,5 @@
+from termcolor import colored
+
 # Aantal personen
 aantal_personen = 5
 
@@ -22,5 +24,5 @@ totale_kosten = totale_kosten_per_persoon * aantal_personen
 bijdrage_per_persoon = totale_kosten / 2
 aantal_betalende_personen = 2
 
-# Resultaat
-print(f'Dit gezellige dagje-uit met {aantal_personen} mensen in de Speelhal met {aantal_minuten_vip} minuten VR kost je maar {bijdrage_per_persoon:.2f} euro per persoon voor {aantal_betalende_personen} mensen')
+# Resultaat met gekleurde variabelen
+print(f'Dit gezellige dagje-uit met {colored(aantal_personen, "light_magenta")} mensen in de Speelhal met {colored(aantal_minuten_vip, "light_blue")} minuten VR kost je maar {colored(bijdrage_per_persoon, "red")} euro per persoon voor {colored(aantal_betalende_personen, "green")} mensen')

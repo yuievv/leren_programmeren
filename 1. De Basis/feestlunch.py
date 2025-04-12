@@ -1,3 +1,5 @@
+from termcolor import colored
+
 # Aantal producten + prijzen
 aantal_croissantjes = 17
 prijs_croissantje = 0.39  
@@ -13,5 +15,5 @@ totale_kosten = (aantal_croissantjes * prijs_croissantje) + (aantal_stokbroden *
 totale_korting = aantal_kortingsbonnen * korting_per_bon
 te_betalen_bedrag = totale_kosten - totale_korting
 
-# Resultaat
-print(f'De feestlunch kost je bij de bakker {te_betalen_bedrag:.2f} euro voor de {aantal_croissantjes} croissantjes en de {aantal_stokbroden} stokbroden als de {aantal_kortingsbonnen} kortingsbonnen nog geldig zijn!')
+# Resultaat met gekleurde variabelen
+print(f'De feestlunch kost je bij de bakker {colored(te_betalen_bedrag, "light_magenta")} euro voor de {colored(aantal_croissantjes, "light_cyan")} croissantjes en de {colored(aantal_stokbroden, "red")} stokbroden als de {colored(aantal_kortingsbonnen, "yellow")} kortingsbonnen nog geldig zijn!')
