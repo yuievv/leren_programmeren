@@ -1,3 +1,4 @@
+# Aantal personen
 aantal_personen = 5
 
 # Kosten p.p voor toegangsticket
@@ -19,6 +20,7 @@ totale_kosten = totale_kosten_per_persoon * aantal_personen
 
 # Jij en 1 vriend betalen elk de helft van de totale kosten
 bijdrage_per_persoon = totale_kosten / 2
+aantal_betalende_personen = 2
 
 # Resultaat
-print(f"Dit gezellige dagje-uit met {aantal_personen} mensen in de speelhal met {aantal_minuten_vip} minuten VR kost je maar {bijdrage_per_persoon:.2f} euro")
+print(f'Dit gezellige dagje-uit met {aantal_personen} mensen in de Speelhal met {aantal_minuten_vip} minuten VR kost je maar {bijdrage_per_persoon:.2f} euro per persoon voor {aantal_betalende_personen} mensen')
