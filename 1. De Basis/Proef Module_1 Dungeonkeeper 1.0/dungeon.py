@@ -36,16 +36,20 @@ time.sleep(1)
 
 # === [kamer 7] === #
 print('In een kleine kamer zie je iets glinsteren op de grond...')
-print('Je raapt het op: het is een rupee!')
-player_rupees += 1
-print(f'Je hebt nu {player_rupees} rupee.')
+if random.randint(1, 10) != 1:  # 1 in 10 chance for no rupee
+    print('Je raapt het op: het is een rupee!')
+    player_rupees += 1
+    print(f'Je hebt nu {player_rupees} rupee.')
+else:
+    print('Het glinsterende voorwerp verdwijnt plotseling als je het probeert op te pakken!')
+    print('Er ligt hier niets meer.')
 
 print('Je ziet twee deuren: één rechtdoor en één naar rechts.')
 keuze_7 = input('Welke kant ga je op? (rechtdoor/rechts): ').lower()
 
 if keuze_7 == 'rechtdoor':
     # === [kamer 2] === #
-    print('Je stapt door de deur en ziet een standbeeld met een sleutel.')
+    print('Je stapt door de deur en ziet een standbeeld met een rupee.')
     num1 = random.randint(10, 25)
     num2 = random.randint(-5, 75)
     operator = random.choice(['+', '-', '*'])
@@ -61,8 +65,9 @@ if keuze_7 == 'rechtdoor':
     antwoord = int(input('Wat toets je in? '))
 
     if antwoord == correct_answer:
-        print('Het standbeeld laat de sleutel vallen.')
-        has_key = True
+        print('Het standbeeld laat een rupee vallen.')
+        player_rupees += 1
+        print(f'Je hebt nu {player_rupees} rupees.')
     else:
         print('Er gebeurt niets...')
 
@@ -109,13 +114,24 @@ if keuze_gok == 'ja':
 else:
     print('Je laat de gokmachine met rust.')
 
+# === [kamer 9] === #
+print('Je komt in een betoverde kamer. De muren lijken te bewegen...')
+effect = random.choice(['defense', 'health'])
+if effect == 'defense':
+    player_defense += 1
+    print('Je voelt je beschermender! Je defense is met 1 verhoogd.')
+else:
+    player_health += 2
+    print('Je voelt je vitaler! Je health is met 2 verhoogd.')
+print(f'Je stats zijn nu: health={player_health}, defense={player_defense}, rupees={player_rupees}')
+
 # === [kamer 3] === #
 print('Je loopt een kamer binnen met een goblin achter een tafel.')
-print('"Welkom, reiziger!" zegt hij. "Ik heb zwaarden en schilden voor 1 rupee per stuk."')
+print('"Welkom, reiziger!" zegt hij. "Ik heb zwaarden, schilden en zelfs een sleutel voor 1 rupee per stuk."')
 print(f'"Ik zie dat jij {player_rupees} rupee(s) hebt."')
 
 while player_rupees > 0:
-    keuze_item = input('Wat wil je kopen? (zwaard/schild/stop): ').lower()
+    keuze_item = input('Wat wil je kopen? (zwaard/schild/sleutel/stop): ').lower()
     if keuze_item == 'zwaard':
         player_attack += 2
         player_rupees -= 1
@@ -124,10 +140,17 @@ while player_rupees > 0:
         player_defense += 1
         player_rupees -= 1
         print('Je verdediging is nu beter.')
+    elif keuze_item == 'sleutel':
+        has_key = True
+        player_rupees -= 1
+        print('Je hebt nu de sleutel voor de schatkist!')
     elif keuze_item == 'stop':
         break
     else:
         print('Geen geldig item.')
+
+if player_rupees == 0:
+    print('"Je hebt geen rupees meer, dus ik kan je niets meer verkopen!" zegt de goblin.')
 
 print('Je verlaat de winkelkamer.')
 print('')
