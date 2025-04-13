@@ -3,6 +3,7 @@ import time, math, random
 player_attack = 1
 player_defense = 0
 player_health = 3
+player_rupees = 0
 has_key = False
 
 def fight_enemy(enemy_attack, enemy_defense, enemy_health, enemy_name):
@@ -30,6 +31,15 @@ def fight_enemy(enemy_attack, enemy_defense, enemy_health, enemy_name):
 print('Door de twee grote deuren loop je een gang binnen.')
 print('Het ruikt hier muf en vochtig.')
 print('Je ziet een deur voor je.')
+print('')
+time.sleep(1)
+
+# === [kamer 7] === #
+print('In een kleine kamer zie je iets glinsteren op de grond...')
+print('Je raapt het op: het is een rupee!')
+player_rupees += 1
+print(f'Je hebt nu {player_rupees} rupee.')
+print('Je gaat verder naar de volgende kamer.')
 print('')
 time.sleep(1)
 
@@ -76,22 +86,29 @@ if keuze == 'links':
     time.sleep(1)
 
 # === [kamer 3] === #
-print('Je komt in een lange kamer met een tafel...')
-item = random.choice(['schild', 'zwaard'])
+print('Je komt in een lange kamer met een goblin achter een tafel.')
+print('"Welkom, reiziger!" zegt hij. "Wil je iets kopen? Een zwaard of een schild? Elk kost 1 rupee."')
 
-if item == 'schild':
-    player_defense += 1
+if player_rupees > 0:
+    keuze_item = input('Wat wil je kopen? (zwaard/schild/geen): ').lower()
+    if keuze_item == 'zwaard':
+        player_attack += 2
+        player_rupees -= 1
+        print('Je hebt een zwaard gekocht! Je aanval is nu sterker.')
+    elif keuze_item == 'schild':
+        player_defense += 1
+        player_rupees -= 1
+        print('Je hebt een schild gekocht! Je verdediging is nu beter.')
+    else:
+        print('Je besluit niets te kopen.')
 else:
-    player_attack += 2
-
-print(f'In deze kamer staat een tafel met daarop een {item}.')
-print(f'Je pakt het {item} op en houd het bij je.')
+    print('Je hebt geen rupees, de goblin kijkt je teleurgesteld aan.')
 print('Op naar de volgende deur.')
 print('')
 time.sleep(1)
 
 # === [kamer 4] === #
-print(f'Dapper met je nieuwe {item} loop je de kamer binnen.')
+print(f'Dapper met je uitrusting loop je de kamer binnen.')
 print('Je ziet een gemene ork voor je!')
 
 ork_attack = 2
