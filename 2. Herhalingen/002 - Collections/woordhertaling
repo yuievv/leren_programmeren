@@ -1,0 +1,26 @@
+# Vertaalwoordenboek
+vertaling = {
+    "draak": "pinguïn",
+    "vuur": "ijs",
+    "vlam": "sneeuwvlok",
+    "magie": "vis",
+    "schild": "paraplu",
+    "tovenaar": "fotograaf",
+    "kasteel": "iglo",
+    "zwaard": "selfiestick",
+    "ridder": "toerist",
+    "betoverd": "fotogeniek"
+}
+
+tekst = input("Voer je tekst in: ")
+
+#Voorbeeldtekst
+# De dappere ridder betrad het betoverde kasteel met zijn zwaard in de aanslag. De tovenaar gebruikte magie om een vlam te creëren die het hele kasteel verlichtte.
+
+# Vertaal de tekst
+for woord, vervanging in vertaling.items():
+    tekst = tekst.replace(woord, vervanging)
+
+# Resultaat
+print("\nHertaling:")
+print(tekst)
