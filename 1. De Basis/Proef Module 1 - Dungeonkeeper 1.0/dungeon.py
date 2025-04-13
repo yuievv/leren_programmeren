@@ -25,19 +25,25 @@ def kamer_2():
     
     if antwoord == correct:
         print("\nHet standbeeld geeft je een gouden sleutel!")
-        return True
+        has_key = True
     else:
         print("\nHet standbeeld negeert je...")
-        return False
+        has_key = False
+    
+    print("\nEr zijn twee uitgangen: links en rechts")
+    keuze = input("Welke kant kies je? (links/rechts): ").lower()
+    
+    if keuze == "links":
+        return has_key, "kamer6"
+    else:
+        return has_key, "kamer3"
 
 def voer_gevecht_uit(speler, vijand, vijand_naam):
     print(f"\nEen {vijand_naam} valt je aan!")
     
-    # Bereken schade per hit
     vijand_schade = max(1, vijand['attack'] - speler['defence'])
     speler_schade = max(1, speler['attack'] - vijand['defence'])
     
-    # Bereken benodigde hits
     vijand_hits = (speler['health'] + vijand_schade - 1) // vijand_schade
     speler_hits = (vijand['health'] + speler_schade - 1) // speler_schade
     
@@ -63,17 +69,19 @@ def kamer_6():
         'defence': 3
     }
     
-    return voer_gevecht_uit(speler, zombie, "zombie")
+    if voer_gevecht_uit(speler, zombie, "zombie"):
+        return "kamer3"
+    return None
 
 def kamer_3():
     item = random.choice(['schild', 'zwaard'])
     
     if item == 'schild':
         print("\nJe vindt een glanzend schild tegen de muur.")
-        return {'defence': 1}
+        return {'defence': 1}, "kamer4"
     else:
         print("\nEen scherp zwaard steekt in een steen.")
-        return {'attack': 2}
+        return {'attack': 2}, "kamer4"
 
 def kamer_4():
     bewaker = {
@@ -88,31 +96,33 @@ def kamer_4():
         'defence': 3
     }
     
-    return voer_gevecht_uit(speler, bewaker, "tempelbewaker")
+    if voer_gevecht_uit(speler, bewaker, "tempelbewaker"):
+        return "kamer5"
+    return None
 
 def kamer_5(has_key):
     if has_key:
         print("\nJe opent de schatkist en vindt de legendarische schat!")
+        print("*** GEFELICITEERD! Je hebt gewonnen! ***")
     else:
         print("\nZonder sleutel kun je de schatkist niet openen...")
+        print("*** GAME OVER ***")
 
 def main():
     kamer_1()
     
-    has_key = kamer_2()
+    has_key, volgende_kamer = kamer_2()
     
-    if not kamer_6():
-        print("Game over - De zombie was te sterk!")
-        return
-    
-    stats = kamer_3()
-    print(stats)
-    
-    if not kamer_4():
-        print("Game over - De tempelbewaker versloeg je!")
-        return
-    
-    kamer_5(has_key)
+    while volgende_kamer:
+        if volgende_kamer == "kamer6":
+            volgende_kamer = kamer_6()
+        elif volgende_kamer == "kamer3":
+            stats, volgende_kamer = kamer_3()
+        elif volgende_kamer == "kamer4":
+            volgende_kamer = kamer_4()
+        elif volgende_kamer == "kamer5":
+            kamer_5(has_key)
+            break
 
 if __name__ == "__main__":
     main()
