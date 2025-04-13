@@ -1,23 +1,21 @@
-# Vraag de gebruiker om 2 gehele getallen
-a = int(input("Voer het eerste getal (a) in: "))
-b = int(input("Voer het tweede getal (b) in: "))
+def vergelijk_getallen(nr1: int, nr2: int) -> str:
+    if nr1 == nr2:
+        return 'Beide getallen zijn even groot'
+    elif nr1 > nr2:
+        return f'Maximum: {nr1} en minimum: {nr2}'
+    else:
+        return f'Maximum: {nr2} en minimum: {nr1}'
 
-# Bepaal of a groter is dan b
-if a > b:
-    Max = a
-    Min = b
-    print(f'a is het grootste getal: {Max}')
-# Bepaal of a kleiner is dan b
-elif a < b:
-    Min = a
-    Max = b
-    print(f'a is het kleinste getal: {Min}')
-# Anders zijn ze gelijk
-else:
-    Min = a
-    Max = b
-    print('a en b zijn even groot')
-
-# Print altijd het minimum en maximum
-print(f'Het minimum is: {Min}')
-print(f'Het maximum is: {Max}')
+# Testen
+if __name__ == "__main__":
+    # Test 1: nr1 > nr2
+    resultaat1 = vergelijk_getallen(10, 5)
+    print(resultaat1)  # Maximum: 10 en minimum: 5
+    
+    # Test 2: nr1 < nr2
+    resultaat2 = vergelijk_getallen(3, 7)
+    print(resultaat2)  # Maximum: 7 en minimum: 3
+    
+    # Test 3: nr1 == nr2
+    resultaat3 = vergelijk_getallen(4, 4)
+    print(resultaat3)  # Beide getallen zijn even groot
