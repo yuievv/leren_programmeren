@@ -7,7 +7,6 @@ has_key = False
 
 def fight_enemy(enemy_attack, enemy_defense, enemy_health, enemy_name):
     global player_health
-    
     enemy_hit_damage = (enemy_attack - player_defense)
     if enemy_hit_damage <= 0:
         print(f'Jij hebt een te goede verdediging voor de {enemy_name}, hij kan je geen schade doen.')
@@ -59,23 +58,25 @@ if antwoord == correct_answer:
 else:
     print('Er gebeurt niets....')
 
-print('Je ziet een deur achter het standbeeld.')
-print('')
-time.sleep(1)
+print('Je ziet twee deuren: één links en één rechts.')
+keuze = input('Welke kies je? (links/rechts): ').lower()
 
-# === [kamer 6] === #
-zombie_attack = 1
-zombie_defense = 0
-zombie_health = 2
-print('Je komt een donkere kamer binnen en hoort gegrom...')
-print('Een zombie verschijnt!')
+if keuze == 'links':
+    # === [kamer 6] === #
+    print('Je gaat door de linker deur...')
+    zombie_attack = 1
+    zombie_defense = 0
+    zombie_health = 2
+    print('Je komt een donkere kamer binnen en hoort gegrom...')
+    print('Een zombie verschijnt!')
 
-if not fight_enemy(zombie_attack, zombie_defense, zombie_health, 'zombie'):
-    exit()
-print('')
-time.sleep(1)
+    if not fight_enemy(zombie_attack, zombie_defense, zombie_health, 'zombie'):
+        exit()
+    print('')
+    time.sleep(1)
 
 # === [kamer 3] === #
+print('Je komt in een lange kamer met een tafel...')
 item = random.choice(['schild', 'zwaard'])
 
 if item == 'schild':
@@ -83,7 +84,6 @@ if item == 'schild':
 else:
     player_attack += 2
 
-print('Je duwt hem open en stap een hele lange kamer binnen.')
 print(f'In deze kamer staat een tafel met daarop een {item}.')
 print(f'Je pakt het {item} op en houd het bij je.')
 print('Op naar de volgende deur.')
