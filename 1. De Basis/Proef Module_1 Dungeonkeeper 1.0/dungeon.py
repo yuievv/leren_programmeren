@@ -12,7 +12,7 @@ def fight_enemy(enemy_attack, enemy_defense, enemy_health, enemy_name):
     if enemy_hit_damage <= 0:
         print(f'Jij hebt een te goede verdediging voor de {enemy_name}, hij kan je geen schade doen.')
         return True
-    
+
     enemy_attack_amount = math.ceil(player_health / enemy_hit_damage)
     player_hit_damage = (player_attack - enemy_defense)
     player_attack_amount = math.ceil(enemy_health / player_hit_damage)
@@ -39,51 +39,53 @@ print('In een kleine kamer zie je iets glinsteren op de grond...')
 print('Je raapt het op: het is een rupee!')
 player_rupees += 1
 print(f'Je hebt nu {player_rupees} rupee.')
-print('Je gaat verder naar de volgende kamer.')
-print('')
-time.sleep(1)
 
-# === [kamer 2] === #
-print('Je stapt door de deur heen en je ziet een standbeeld voor je.')
-print('Het standbeeld heeft een sleutel vast.')
-print('Op zijn borst zit een numpad met de toesten 9 t/m 0.')
+print('Je ziet twee deuren: één rechtdoor en één naar rechts.')
+keuze_7 = input('Welke kant ga je op? (rechtdoor/rechts): ').lower()
 
-num1 = random.randint(10, 25)
-num2 = random.randint(-5, 75)
-operator = random.choice(['+', '-', '*'])
+if keuze_7 == 'rechtdoor':
+    # === [kamer 2] === #
+    print('Je gaat rechtdoor naar de volgende kamer...')
+    print('Je stapt door de deur heen en je ziet een standbeeld voor je.')
+    print('Het standbeeld heeft een sleutel vast.')
+    print('Op zijn borst zit een numpad met de toesten 9 t/m 0.')
 
-if operator == '+':
-    correct_answer = num1 + num2
-elif operator == '-':
-    correct_answer = num1 - num2
-else:
-    correct_answer = num1 * num2
+    num1 = random.randint(10, 25)
+    num2 = random.randint(-5, 75)
+    operator = random.choice(['+', '-', '*'])
 
-print(f'Daarboven zie je een som staan {num1}{operator}{num2}=?')
-antwoord = int(input('Wat toest je in?'))
+    if operator == '+':
+        correct_answer = num1 + num2
+    elif operator == '-':
+        correct_answer = num1 - num2
+    else:
+        correct_answer = num1 * num2
 
-if antwoord == correct_answer:
-    print('Het standbeeld laat de sleutel vallen en je pakt het op')
-    has_key = True
-else:
-    print('Er gebeurt niets....')
+    print(f'Daarboven zie je een som staan {num1}{operator}{num2}=?')
+    antwoord = int(input('Wat toest je in?'))
 
-print('Je ziet twee deuren: één links en één rechts.')
-keuze = input('Welke kies je? (links/rechts): ').lower()
+    if antwoord == correct_answer:
+        print('Het standbeeld laat de sleutel vallen en je pakt het op')
+        has_key = True
+    else:
+        print('Er gebeurt niets....')
 
-if keuze == 'links':
-    # === [kamer 6] === #
-    print('Je gaat door de linker deur...')
-    zombie_attack = 1
-    zombie_defense = 0
-    zombie_health = 2
-    print('Je komt een donkere kamer binnen en hoort gegrom...')
-    print('Een zombie verschijnt!')
+    print('Je ziet twee deuren: één links en één rechts.')
+    keuze = input('Welke kies je? (links/rechts): ').lower()
 
-    if not fight_enemy(zombie_attack, zombie_defense, zombie_health, 'zombie'):
-        exit()
-    print('')
-    time.sleep(1)
+    if keuze == 'links':
+        # === [kamer 6] === #
+        print('Je gaat door de linker deur...')
+        zombie_attack = 1
+        zombie_defense = 0
+        zombie_health = 2
+        print('Je komt een donkere kamer binnen en hoort gegrom...')
+        print('Een zombie verschijnt!')
+
+        if not fight_enemy(zombie_attack, zombie_defense, zombie_health, 'zombie'):
+            exit()
+        print('')
+        time.sleep(1)
 
 # === [kamer 3] === #
 print('Je komt in een lange kamer met een goblin achter een tafel.')
