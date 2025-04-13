@@ -36,7 +36,7 @@ time.sleep(1)
 
 # === [kamer 7] === #
 print('In een kleine kamer zie je iets glinsteren op de grond...')
-if random.randint(1, 10) != 1:  # 1 in 10 chance for no rupee
+if random.randint(1, 10) != 1:
     print('Je raapt het op: het is een rupee!')
     player_rupees += 1
     print(f'Je hebt nu {player_rupees} rupee.')
@@ -81,8 +81,57 @@ if keuze_7 == 'rechtdoor':
 
         if not fight_enemy(1, 0, 2, 'zombie'):
             exit()
-        print('')
-        time.sleep(1)
+        
+        print('Na het verslaan van de zombie zie je twee deuren: één naar boven en één naar rechts.')
+        keuze_6 = input('Welke kant ga je op? (boven/rechts): ').lower()
+        
+        if keuze_6 == 'rechts':
+            # === [kamer 3] === #
+            print('Je loopt een kamer binnen met een goblin achter een tafel.')
+            print('"Welkom, reiziger!" zegt hij. "Ik heb zwaarden, schilden en zelfs een sleutel voor 1 rupee per stuk."')
+            print(f'"Ik zie dat jij {player_rupees} rupee(s) hebt."')
+
+            while player_rupees > 0:
+                keuze_item = input('Wat wil je kopen? (zwaard/schild/sleutel/stop): ').lower()
+                if keuze_item == 'zwaard':
+                    player_attack += 2
+                    player_rupees -= 1
+                    print('Je aanval is nu sterker.')
+                elif keuze_item == 'schild':
+                    player_defense += 1
+                    player_rupees -= 1
+                    print('Je verdediging is nu beter.')
+                elif keuze_item == 'sleutel':
+                    has_key = True
+                    player_rupees -= 1
+                    print('Je hebt nu de sleutel voor de schatkist!')
+                elif keuze_item == 'stop':
+                    break
+                else:
+                    print('Geen geldig item.')
+
+            if player_rupees == 0:
+                print('"Je hebt geen rupees meer, dus ik kan je niets meer verkopen!" zegt de goblin.')
+
+            print('Je verlaat de winkelkamer.')
+            print('')
+            time.sleep(1)
+            
+            # === [kamer 4] === #
+            print('Een agressieve ork stormt op je af!')
+
+            if not fight_enemy(2, 0, 3, 'ork'):
+                exit()
+            print('')
+            time.sleep(1)
+
+            # === [kamer 5] === #
+            print('Je ziet een grote schatkist in het midden van de kamer...')
+            if has_key:
+                print('Je gebruikt de sleutel en opent de schatkist. Je hebt gewonnen!')
+            else:
+                print('De kist zit op slot. Zonder sleutel kun je hem niet openen. Game over.')
+            exit()
 
 # === [kamer 8] === #
 print('Je betreedt een kamer met een mysterieuze gokmachine.')
@@ -113,6 +162,57 @@ if keuze_gok == 'ja':
         print(f'Je hebt nu {player_rupees} rupees en {player_health} health.')
 else:
     print('Je laat de gokmachine met rust.')
+
+print('Je ziet twee deuren: één naar boven en één naar links.')
+keuze_8 = input('Welke kant ga je op? (boven/links): ').lower()
+
+if keuze_8 == 'links':
+    # === [kamer 3] === #
+    print('Je loopt een kamer binnen met een goblin achter een tafel.')
+    print('"Welkom, reiziger!" zegt hij. "Ik heb zwaarden, schilden en zelfs een sleutel voor 1 rupee per stuk."')
+    print(f'"Ik zie dat jij {player_rupees} rupee(s) hebt."')
+
+    while player_rupees > 0:
+        keuze_item = input('Wat wil je kopen? (zwaard/schild/sleutel/stop): ').lower()
+        if keuze_item == 'zwaard':
+            player_attack += 2
+            player_rupees -= 1
+            print('Je aanval is nu sterker.')
+        elif keuze_item == 'schild':
+            player_defense += 1
+            player_rupees -= 1
+            print('Je verdediging is nu beter.')
+        elif keuze_item == 'sleutel':
+            has_key = True
+            player_rupees -= 1
+            print('Je hebt nu de sleutel voor de schatkist!')
+        elif keuze_item == 'stop':
+            break
+        else:
+            print('Geen geldig item.')
+
+    if player_rupees == 0:
+        print('"Je hebt geen rupees meer, dus ik kan je niets meer verkopen!" zegt de goblin.')
+
+    print('Je verlaat de winkelkamer.')
+    print('')
+    time.sleep(1)
+    
+    # === [kamer 4] === #
+    print('Een agressieve ork stormt op je af!')
+
+    if not fight_enemy(2, 0, 3, 'ork'):
+        exit()
+    print('')
+    time.sleep(1)
+
+    # === [kamer 5] === #
+    print('Je ziet een grote schatkist in het midden van de kamer...')
+    if has_key:
+        print('Je gebruikt de sleutel en opent de schatkist. Je hebt gewonnen!')
+    else:
+        print('De kist zit op slot. Zonder sleutel kun je hem niet openen. Game over.')
+    exit()
 
 # === [kamer 9] === #
 print('Je komt in een betoverde kamer. De muren lijken te bewegen...')
