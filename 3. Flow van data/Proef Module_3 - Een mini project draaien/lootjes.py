@@ -1,9 +1,16 @@
 import random
 
-print("Welkom bij het lootjes programma!")
+def lootjes_trekken(namen):
+    while True:
+        lootjes = namen[:]
+        random.shuffle(lootjes)
+        
+        if all(namen[i] != lootjes[i] for i in range(len(namen))):
+            return dict(zip(namen, lootjes))
+
+print("Welkom bij het geheime lootjesprogramma!")
 
 namen = []
-
 while True:
     naam = input("Voer een naam in: ")
     
@@ -17,21 +24,16 @@ while True:
         if keuze == "nee":
             break
 
+verdeling = lootjes_trekken(namen)
+print("\nDe lootjes zijn verdeeld! Je kunt nu opvragen wie je hebt getrokken.")
+
 while True:
-    lootjes = namen[:]
-    random.shuffle(lootjes)  
-
-    geldig = True
-    for i in range(len(namen)):
-        if namen[i] == lootjes[i]:
-            geldig = False
-            break
-
-    if geldig:
-        break  
-
-print("\nDe lootjesverdeling is:")
-for i in range(len(namen)):
-    print(f"{namen[i]} heeft getrokken: {lootjes[i]}")
+    opvraag = input("Voer je naam in om te zien wie je hebt getrokken (of typ 'stop' om te stoppen): ")
+    if opvraag.lower() == "stop":
+        break
+    elif opvraag in verdeling:
+        print(f"{opvraag}, jij hebt {verdeling[opvraag]} getrokken.")
+    else:
+        print("Deze naam zit niet in de lijst. Probeer opnieuw.")
 
 print("\nEinde programma.")
