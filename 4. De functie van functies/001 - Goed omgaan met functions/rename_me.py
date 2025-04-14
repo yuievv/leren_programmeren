@@ -1,28 +1,49 @@
-def quantum_broodrooster(stellar_broccoli:int) -> bool:
-    return stellar_broccoli % 2 == 0
+def is_even(number: int) -> bool:
+    # Controleert of een gegeven getal even is.
+    return number % 2 == 0
 
-def chaos_papegaai(fantasie_platypus:str) -> str:
-    betoverde_druif = fantasie_platypus.split()
-    doldwaze_broccoli = betoverde_druif[::-1]
-    tijdmachine_pannenkoekenmix = ' '.join(doldwaze_broccoli)
-    return tijdmachine_pannenkoekenmix
 
-def kosmische_koekjesmix(galactische_snoepjes:str) -> int:
-    planetair_taartje = set(galactische_snoepjes)
-    whatchamacallit = len(planetair_taartje)
-    return whatchamacallit
+def reverse_words(sentence: str) -> str:
+    # Keert de volgorde van woorden in een zin om.
+    words = sentence.split()
+    reversed_words = words[::-1]
+    return ' '.join(reversed_words)
 
-def ruimte_hamsterwiel(planetair_taartje:str) -> float:
-    wobbelwobbel = planetair_taartje.split()
-    
-    blork = 0
-    for snorkelwagen in wobbelwobbel:
-        blork += len(snorkelwagen)
 
-    bizarro_matrix = blork / len(wobbelwobbel)
-    return bizarro_matrix
+def unique_char_count(text: str) -> int:
+    # Berekent het aantal unieke tekens in een string.
+    return len(set(text))
 
-def spaghetti_spaceship(infinity_pizza:int, parallelle_tosti:int=10) -> None:
-    for zwabber_krakeling in range(1, parallelle_tosti+1):
-        laser_sandwich = zwabber_krakeling * infinity_pizza
-        print(f'{zwabber_krakeling} x {infinity_pizza} = {laser_sandwich}')
+
+def average_word_length(sentence: str) -> float:
+    # Berekent de gemiddelde lengte van woorden in een zin.
+    words = sentence.split()
+    total_length = sum(len(word) for word in words)
+    return total_length / len(words) if words else 0
+
+
+def multiplication_table(number: int, max_factor: int = 10) -> None:
+    # Drukt de vermenigvuldigingstabel af voor een gegeven getal
+    for factor in range(1, max_factor + 1):
+        result = factor * number
+        print(f'{factor} x {number} = {result}')
+
+# Test voor is_even
+print(is_even(4))  #True
+print(is_even(7))  #False
+
+# Test voor reverse_words
+print(reverse_words("wereld hallo"))  
+print(reverse_words("leuk is programmeren"))  
+
+# Test voor unique_char_count
+print(unique_char_count("hello"))  #4 ('h', 'e', 'l', 'o')
+print(unique_char_count("aaaa"))  #1 ('a')
+
+# Test voor average_word_length
+print(average_word_length("dit is een test"))  # Verwacht: 2.75
+print(average_word_length("hallo"))  # Verwacht: 5.0
+
+# Test voor multiplication_table
+multiplication_table(5, 6)
+
