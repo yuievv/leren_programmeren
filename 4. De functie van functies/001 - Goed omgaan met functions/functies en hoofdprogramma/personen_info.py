@@ -16,8 +16,3 @@ def verzamel_gegevens():
         persoon = vraag_naam_leeftijd_en_woonplaats()
         personen.append(persoon)
     return personen
-
-alle_gegevens = verzamel_gegevens()
-
-for persoon in alle_gegevens:
-    print(f"{persoon['name']}, die in {persoon['city']} woont, is {persoon['age']} jaar")
