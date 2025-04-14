@@ -1,4 +1,4 @@
-from functions import addition, subtraction, multiplication, division
+from calculations import calculations
 
 def main():
     first_round = True
@@ -52,14 +52,14 @@ Kies: """
             n2 = float(input(f"Welk getal {'optellen bij' if choice == 'a' else 'aftrekken van' if choice == 'b' else 'vermenigvuldigen met' if choice == 'c' else 'delen door'} {n1}? "))
         
         operation = {
-            'a': addition,
-            'b': subtraction,
-            'c': multiplication,
-            'd': division,
-            'e': addition,
-            'f': subtraction,
-            'g': multiplication,
-            'h': division
+            'a': calculations['addition'],
+            'b': calculations['subtraction'],
+            'c': calculations['multiplication'],
+            'd': calculations['division'],
+            'e': calculations['addition'],
+            'f': calculations['subtraction'],
+            'g': calculations['multiplication'],
+            'h': calculations['division']
         }[choice]
         
         new_result = operation(n1, n2)
