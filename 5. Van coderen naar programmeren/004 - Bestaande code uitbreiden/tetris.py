@@ -210,7 +210,7 @@ class Tetris(object):
 		while 1:
 			self.screen.fill((0,0,0))
 			if self.gameover:
-				self.center_msg(f"Game Over!\nLines cleared: {self.lines_cleared}\nPress space to continue")
+				self.center_msg(f"Game Over!\nLines cleared: {self.lines_cleared}\nPress space to continue")	#  It shows lines cleared at the end of the game
 			else:
 				if self.paused:
 					self.center_msg("Paused")
