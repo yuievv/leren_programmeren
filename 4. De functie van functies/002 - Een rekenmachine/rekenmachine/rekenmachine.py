@@ -7,7 +7,7 @@ def get_number(prompt):
         try:
             return float(invoer)
         except ValueError:
-            print("Geen getal, probeer opnieuw.")
+            print("No number, please try again.")
 
 
 def format_result(n1, n2, choice, result):
@@ -28,7 +28,7 @@ def verwerk_keuze(choice, n1):
     elif choice in ('g', 'h'):
         n2 = 2.0
     else:
-        n2 = get_number("Voer het tweede getal in: ")
+        n2 = get_number("Enter the second number: ")
 
     if choice in ('a', 'e'):
         result = functions.addition(n1, n2)
@@ -44,57 +44,57 @@ def verwerk_keuze(choice, n1):
 
 
 def ask_first_choice():
-    print("Wat wilt u doen?")
-    print("A) getallen optellen")
-    print("B) getallen aftrekken")
-    print("C) getallen vermenigvuldigen")
-    print("D) getallen delen")
-    print("E) getal ophogen")
-    print("F) getal verlagen")
-    print("G) getal verdubbelen")
-    print("H) getal halveren")
+    print("What would you like to do?")
+    print("A) Add numbers")
+    print("B) Subtract numbers")
+    print("C) Multiply numbers")
+    print("D) Divide numbers")
+    print("E) Increment number")
+    print("F) Decrement number")
+    print("G) Double number")
+    print("H) Halve number")
     while True:
-        choice = input("Uw keuze: ").strip().lower()
+        choice = input("Your choice: ").strip().lower()
         if choice in ('a', 'b', 'c', 'd', 'e', 'f', 'g', 'h'):
             return choice
-        print("Ongeldige keuze, probeer opnieuw.")
+        print("Invalid choice, please try again.")
 
 
 def ask_next_choice(uitkomst):
     uitkomst_str = str(int(uitkomst)) if uitkomst == int(uitkomst) else str(uitkomst)
-    print(f"\nWil je wat met de uitkomst ({uitkomst_str}) doen?")
-    print("A) iets optellen")
-    print("B) iets aftrekken")
-    print("C) met iets vermenigvuldigen")
-    print("D) ergens door delen")
-    print("E) ophogen")
-    print("F) verlagen")
-    print("G) verdubbelen")
-    print("H) halveren")
-    print("I) niets")
+    print(f"\nWould you like to do something with the result ({uitkomst_str})?")
+    print("A) Add something")
+    print("B) Subtract something")
+    print("C) Multiply by something")
+    print("D) Divide by something")
+    print("E) Increment")
+    print("F) Decrement")
+    print("G) Double")
+    print("H) Halve")
+    print("I) Nothing")
     while True:
-        choice = input("Uw keuze: ").strip().lower()
+        choice = input("Your choice: ").strip().lower()
         if choice in ('a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i'):
             return choice
-        print("Ongeldige keuze, probeer opnieuw.")
+        print("Invalid choice, please try again.")
 
 
-# Stap 1: eerste keuze
+# Step 1: first choice
 choice = ask_first_choice()
 
-# Stap 2: eerste getal opvragen
-n1 = get_number("Voer het eerste getal in: ")
+# Step 2: request the first number
+n1 = get_number("Enter the first number: ")
 
-# Stap 3: berekening uitvoeren
+# Step 3: perform the calculation and show the result
 uitkomst = verwerk_keuze(choice, n1)
 
-# Stap 4: volgende berekeningen
+# Step 4: the following calculations
 while True:
     choice = ask_next_choice(uitkomst)
 
     if choice == 'i':
-        print("Tot ziens!")
+        print("Goodbye!")
         break
 
-    # Gebruik uitkomst als n1, vraag alleen n2 indien nodig
+    # Use the result as n1; only ask for n2 if necessary
     uitkomst = verwerk_keuze(choice, uitkomst)
