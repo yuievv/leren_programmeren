@@ -59,6 +59,11 @@ class Tetris(object):
 			self.new_stone()
 			self.gameover = False
 
+			# Reset line counter and current delay on new game
+			self.lines_cleared = 0	# Counter for lines cleared, resets at the start of a new game 
+			self.current_delay = self._config['delay']
+			pygame.time.set_timer(pygame.USEREVENT+1, self.current_delay)	# Start the timer at the initial speed
+
 	def new_board(self) -> list:
 		self.board = [ [ 0 for x in range(self._config['cols']) ]
 				for y in range(self._config['rows']) ]
@@ -89,14 +94,33 @@ class Tetris(object):
 				self.board = self.join_matrixes(self.board, self.stone,(self.stone_x, self.stone_y))
 				self.new_stone()
 				
+				lines_in_this_drop = 0	# Keep track of how many lines have been played in this drop
 				while True:
 					for i, row in enumerate(self.board[:-1]):
 						if 0 not in row:
 							self.board = self.remove_row(i)
+							lines_in_this_drop += 1	# Count each row that has been removed
 							break
 					else:
 						break
+
+				if lines_in_this_drop > 0:
+					self.update_speed(lines_in_this_drop)
 	
+	def update_speed(self, new_lines: int) -> None:
+		"""Increase speed by 10% for every 5 lines cleared."""
+		prev_level = self.lines_cleared // 5
+		self.lines_cleared += new_lines
+		new_level = self.lines_cleared // 5
+
+		if new_level > prev_level:
+			# One or more speed thresholds crossed: apply 10% reduction per threshold
+			steps = new_level - prev_level
+			self.current_delay = int(self.current_delay * (0.9 ** steps))
+			# Keep a sensible minimum so the game stays playable
+			self.current_delay = max(self.current_delay, 50)
+			pygame.time.set_timer(pygame.USEREVENT+1, self.current_delay)
+
 	def rotate_stone(self) -> None:
 		if not self.gameover and not self.paused:
 			new_stone = []
@@ -178,8 +202,10 @@ class Tetris(object):
 		
 		self.gameover = False
 		self.paused = False
+		self.lines_cleared = 0	# Counter for cleared lines
+		self.current_delay = self._config['delay']	# Descent rate
 		
-		pygame.time.set_timer(pygame.USEREVENT+1, self._config['delay'])
+		pygame.time.set_timer(pygame.USEREVENT+1, self.current_delay)	# Use `current_delay` instead of a fixed value
 		dont_burn_my_cpu = pygame.time.Clock()
 		while 1:
 			self.screen.fill((0,0,0))
