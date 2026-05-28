@@ -1,86 +1,100 @@
-from functions import addition, subtraction, multiplication, division
+import functions
 
-def main():
-    first_round = True
-    result = None
-    
+
+def get_number(prompt):
     while True:
-        if first_round:
-            menu = """Wat wilt u doen?
-A) getallen optellen
-B) getallen aftrekken
-C) getallen vermenigvuldigen
-D) getallen delen
-E) getal ophogen
-F) getal verlagen
-G) getal verdubbelen
-H) getal halveren
-Kies: """
-        else:
-            menu = f"""Wat wilt u doen met de uitkomst ({result})?
-A) iets optellen
-B) iets aftrekken
-C) iets vermenigvuldigen
-D) door iets delen
-E) ophogen
-F) verlagen
-G) verdubbelen
-H) halveren
-I) niets
-Kies: """
-        
-        choice = input(menu).lower()
-        
-        if not first_round and choice == 'i':
-            print("Einde berekening")
-            break
-        
-        if choice not in ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h']:
-            print("Ongeldige keuze, probeer opnieuw")
-            continue
-        
-        if first_round or result is None:
-            n1 = float(input("Welk getal? " if first_round else f"Wat is het volgende getal bij {result}? "))
-        else:
-            n1 = result
-        
-        if choice in ['e', 'f']:
-            n2 = 1
-        elif choice in ['g', 'h']:
-            n2 = 2
-        else:
-            n2 = float(input(f"Welk getal {'optellen bij' if choice == 'a' else 'aftrekken van' if choice == 'b' else 'vermenigvuldigen met' if choice == 'c' else 'delen door'} {n1}? "))
-        
-        operation = {
-            'a': addition,
-            'b': subtraction,
-            'c': multiplication,
-            'd': division,
-            'e': addition,
-            'f': subtraction,
-            'g': multiplication,
-            'h': division
-        }[choice]
-        
-        new_result = operation(n1, n2)
-        
-        if new_result is not None:
-            operator = {
-                'a': '+',
-                'b': '-',
-                'c': 'x',
-                'd': ':',
-                'e': '+',
-                'f': '-',
-                'g': 'x',
-                'h': ':'
-            }[choice]
-            
-            print(f"{n1} {operator} {n2} = {new_result}")
-            print("-" * 50)
-            result = new_result
-        
-        first_round = False
+        invoer = input(prompt)
+        try:
+            return float(invoer)
+        except ValueError:
+            print("Geen getal, probeer opnieuw.")
 
-if __name__ == "__main__":
-    main()
+
+def format_result(n1, n2, choice, result):
+    operators = {
+        'a': '+', 'b': '-', 'c': 'x', 'd': ':',
+        'e': '+', 'f': '-', 'g': 'x', 'h': ':'
+    }
+    operator = operators[choice]
+    n1_str = str(int(n1)) if n1 == int(n1) else str(n1)
+    n2_str = str(int(n2)) if n2 == int(n2) else str(n2)
+    result_str = str(int(result)) if result == int(result) else str(result)
+    print(f"{n1_str} {operator} {n2_str} = {result_str}")
+
+
+def verwerk_keuze(choice, n1):
+    if choice in ('e', 'f'):
+        n2 = 1.0
+    elif choice in ('g', 'h'):
+        n2 = 2.0
+    else:
+        n2 = get_number("Voer het tweede getal in: ")
+
+    if choice in ('a', 'e'):
+        result = functions.addition(n1, n2)
+    elif choice in ('b', 'f'):
+        result = functions.subtraction(n1, n2)
+    elif choice in ('c', 'g'):
+        result = functions.multiplication(n1, n2)
+    elif choice in ('d', 'h'):
+        result = functions.division(n1, n2)
+
+    format_result(n1, n2, choice, result)
+    return result
+
+
+def ask_first_choice():
+    print("Wat wilt u doen?")
+    print("A) getallen optellen")
+    print("B) getallen aftrekken")
+    print("C) getallen vermenigvuldigen")
+    print("D) getallen delen")
+    print("E) getal ophogen")
+    print("F) getal verlagen")
+    print("G) getal verdubbelen")
+    print("H) getal halveren")
+    while True:
+        choice = input("Uw keuze: ").strip().lower()
+        if choice in ('a', 'b', 'c', 'd', 'e', 'f', 'g', 'h'):
+            return choice
+        print("Ongeldige keuze, probeer opnieuw.")
+
+
+def ask_next_choice(uitkomst):
+    uitkomst_str = str(int(uitkomst)) if uitkomst == int(uitkomst) else str(uitkomst)
+    print(f"\nWil je wat met de uitkomst ({uitkomst_str}) doen?")
+    print("A) iets optellen")
+    print("B) iets aftrekken")
+    print("C) met iets vermenigvuldigen")
+    print("D) ergens door delen")
+    print("E) ophogen")
+    print("F) verlagen")
+    print("G) verdubbelen")
+    print("H) halveren")
+    print("I) niets")
+    while True:
+        choice = input("Uw keuze: ").strip().lower()
+        if choice in ('a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i'):
+            return choice
+        print("Ongeldige keuze, probeer opnieuw.")
+
+
+# Stap 1: eerste keuze
+choice = ask_first_choice()
+
+# Stap 2: eerste getal opvragen
+n1 = get_number("Voer het eerste getal in: ")
+
+# Stap 3: berekening uitvoeren
+uitkomst = verwerk_keuze(choice, n1)
+
+# Stap 4: volgende berekeningen
+while True:
+    choice = ask_next_choice(uitkomst)
+
+    if choice == 'i':
+        print("Tot ziens!")
+        break
+
+    # Gebruik uitkomst als n1, vraag alleen n2 indien nodig
+    uitkomst = verwerk_keuze(choice, uitkomst)
